@@ -1,10 +1,8 @@
 package com.example.spring.resttemplate.demo.config;
 
-import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.validation.annotation.Validated;
@@ -17,7 +15,8 @@ public class QuoteServiceConfig {
 	@NotNull
 	@NotEmpty
 	private String url;
-	
+
+	@NotEmpty
 	private String senderId;
 
 	
@@ -28,7 +27,6 @@ public class QuoteServiceConfig {
 	public void setSenderId(String senderId) {
 		this.senderId = senderId;
 	}
-
 	
 	public String getUrl() {
 		return url;
