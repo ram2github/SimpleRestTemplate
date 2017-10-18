@@ -13,6 +13,6 @@ This example illustrates
  - illustrating validation of properties at startup
 
 Note : config currently NOT kept in Config Server
-       port and QuoteService URL/senderID config is present in application.yml file
+     port and QuoteService URL/senderID config is present in application.yml file
 
 

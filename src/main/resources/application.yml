@@ -3,4 +3,3 @@ server:
 quoteservice:
   url: http://gturnquist-quoters.cfapps.io/api/random  
   senderId: YML_QuoteServiceMS_SenderID
- 
