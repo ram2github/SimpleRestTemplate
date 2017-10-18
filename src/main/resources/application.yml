@@ -1,0 +1,6 @@
+server:
+  port: ${port:9000}
+quoteservice:
+  url: http://gturnquist-quoters.cfapps.io/api/random  
+  senderId: YML_QuoteServiceMS_SenderID
+ 

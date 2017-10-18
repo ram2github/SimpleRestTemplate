@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import com.example.spring.resttemplate.demo.config.QuoteServiceConfig;
 import com.example.spring.resttemplate.demo.resources.Quote;
 
 
@@ -22,10 +23,12 @@ import com.example.spring.resttemplate.demo.resources.Quote;
 public class QuoteInvokerService {
 
 	private Logger logger = Logger.getLogger(getClass().getName());
-	private static final String QUOTE_SERVER_URL = "http://gturnquist-quoters.cfapps.io/api/random";
 	
 	@Autowired
 	private RestTemplateBuilder restTemplateBuilder; // this is injected by spring boot framework itself
+	
+	@Autowired
+	private QuoteServiceConfig qsConfig;
 	
 	/**
 	 * Create a singleton restTemplate to be used by the application
@@ -34,8 +37,9 @@ public class QuoteInvokerService {
 	 * @return RestTemplate
 	 */
 	@Bean 
-	public RestTemplate restTemplate(RestTemplateBuilder restTemplateBuilder){
-		logger.info("restTemplate method called on startup,rt ? Please check the logs !!!");
+	public RestTemplate restTemplate(){
+		logger.info("restTemplate method called on startup,rt ? Please check the logs !!!" + restTemplateBuilder);
+		logger.info("Sender : "+ qsConfig.getSenderId() + " URL :" + qsConfig.getUrl());
 		return restTemplateBuilder.build();
 	}
 	
@@ -49,11 +53,11 @@ public class QuoteInvokerService {
 	
 	   logger.info("NOTE : restTemplate is a singleton bean autowired and injected !!!!!" + restTemplate);	
 	   // value retrieved from external MS
-	   Quote springbootquote = restTemplate.getForObject(QUOTE_SERVER_URL, Quote.class);
+	   Quote springbootquote = restTemplate.getForObject(qsConfig.getUrl(), Quote.class);
 	   logger.info("Retrieved from Quotation server" + springbootquote.toString());
 	   
 	   // add rest of the data
-	   springbootquote.setSenderId("Ram_QuoteInvokerService");
+	   springbootquote.setSenderId(qsConfig.getSenderId());
 	   springbootquote.setTimestamp(LocalDateTime.now().toString());
 	   
 	   logger.info("Final response to be sent back:" + springbootquote.toString());
